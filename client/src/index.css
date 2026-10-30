@@ -1,0 +1,109 @@
+@import './leaflet-custom.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme="dark"],
+:root {
+  --bg-canvas: #0C0A09;
+  --bg-canvas-subtle: #130F0C;
+  --bg-panel: rgba(22, 18, 15, 0.78);
+  --bg-panel-raised: rgba(30, 24, 20, 0.88);
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text-primary: #F7F5F2;
+  --text-secondary: #A8A199;
+  --text-muted: #6B635B;
+  --accent: #F5760A;
+  --accent-hover: #E06800;
+
+  /* Flat severity colors */
+  --severity-low: #22C55E;
+  --severity-medium: #F59E0B;
+  --severity-high: #FB923C;
+  --severity-critical: #EF4444;
+
+  --severity-low-bg: rgba(34, 197, 94, 0.14);
+  --severity-medium-bg: rgba(245, 158, 11, 0.14);
+  --severity-high-bg: rgba(251, 146, 60, 0.14);
+  --severity-critical-bg: rgba(239, 68, 68, 0.14);
+}
+
+:root[data-theme="light"] {
+  --bg-canvas: #F5F3F0;
+  --bg-canvas-subtle: #EBE7E2;
+  --bg-panel: rgba(255, 255, 255, 0.85);
+  --bg-panel-raised: rgba(255, 255, 255, 0.95);
+  --border-hairline: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --text-primary: #1C1917;
+  --text-secondary: #78716C;
+  --text-muted: #A8A29E;
+  --accent: #F5760A;
+  --accent-hover: #E06800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphic command center utility classes */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.glass-panel-elevated {
+  background: var(--bg-panel-raised);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.55), 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(32, 26, 22, 0.86);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Tabular nums for all data readings */
+.tabular-data {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom command center scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}

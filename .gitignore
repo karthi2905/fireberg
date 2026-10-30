@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production build outputs
+dist/
+*/dist/
+build/
+
+# Environment files
+.env
+.env.local
+*.env
+
+# SQLite databases (optional to ignore or commit depending on seed)
+# dev.db
+# dev.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+hs_err_*.log
+replay_*.log
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.agents/
+.claude/
+.cursor/
+.devin/
