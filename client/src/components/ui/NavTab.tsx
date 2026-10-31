@@ -26,10 +26,10 @@ export function NavTab({
     <Link
       to={to}
       className={cn(
-        'relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 select-none',
+        'relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 select-none whitespace-nowrap',
         isActive
           ? 'bg-[#F5760A] text-white shadow-sm font-semibold'
-          : 'text-[#A8A199] hover:text-[#F7F5F2] hover:bg-[rgba(255,255,255,0.08)] active:bg-[rgba(255,255,255,0.12)]',
+          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] active:bg-[var(--bg-surface-active)]',
         className
       )}
     >
@@ -37,7 +37,7 @@ export function NavTab({
         <span
           className={cn(
             'flex-shrink-0 transition-colors',
-            isActive ? 'text-white' : 'text-[#A8A199]'
+            isActive ? 'text-white' : 'text-[var(--text-secondary)]'
           )}
         >
           {icon}
@@ -51,7 +51,7 @@ export function NavTab({
             'ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold tabular-nums leading-tight',
             isActive
               ? 'bg-black/30 text-white'
-              : 'bg-[rgba(239,68,68,0.2)] text-[#EF4444]'
+              : 'bg-[rgba(239,68,68,0.18)] text-[#EF4444]'
           )}
           style={badgeColor && !isActive ? { color: badgeColor, backgroundColor: `${badgeColor}25` } : undefined}
         >

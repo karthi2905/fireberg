@@ -65,7 +65,7 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full px-4 lg:px-6 py-3 bg-[rgba(12,10,9,0.85)] backdrop-blur-md border-b border-[rgba(255,255,255,0.08)]">
+    <header className="sticky top-0 z-50 w-full px-4 lg:px-6 py-3 bg-[var(--bg-panel)] backdrop-blur-md border-b border-[var(--border-hairline)] shadow-glass-sm transition-colors duration-200">
       <div className="max-w-[1720px] mx-auto flex items-center justify-between gap-4">
         {/* Left: Brand Identity */}
         <div className="flex items-center gap-3">
@@ -74,19 +74,19 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="text-[17px] font-bold tracking-tight text-[#F7F5F2]">FireBerg</span>
-              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest bg-[rgba(255,255,255,0.08)] text-[#A8A199] rounded border border-[rgba(255,255,255,0.06)]">
+              <span className="text-[17px] font-bold tracking-tight text-[var(--text-primary)]">FireBerg</span>
+              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest bg-[var(--bg-surface)] text-[var(--text-secondary)] rounded border border-[var(--border-hairline)]">
                 CMD-01
               </span>
             </div>
-            <span className="text-[10px] uppercase tracking-wider text-[#A8A199] font-medium leading-none hidden md:block">
+            <span className="text-[10px] uppercase tracking-wider text-[var(--text-secondary)] font-medium leading-none hidden md:block">
               Disaster Early Warning Grid
             </span>
           </div>
         </div>
 
         {/* Center: Pill-tab Navigation */}
-        <nav className="flex items-center p-1 rounded-full bg-[rgba(24,20,17,0.85)] border border-[rgba(255,255,255,0.08)] shadow-glass-sm overflow-x-auto max-w-full">
+        <nav className="flex items-center p-1 rounded-full bg-[var(--bg-panel-raised)] border border-[var(--border-hairline)] shadow-glass-sm overflow-x-auto max-w-full">
           <NavTab to="/" label="Dashboard" icon={<LayoutDashboard size={15} />} />
           <NavTab to="/map" label="Map" icon={<MapIcon size={15} />} />
           <NavTab
@@ -120,12 +120,12 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
 
             {isAlertsDropdownOpen && (
               <div className="absolute right-0 mt-2 w-80 rounded-2xl glass-panel-elevated p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="flex items-center justify-between pb-2 mb-2 border-b border-[rgba(255,255,255,0.08)]">
-                  <span className="text-xs font-semibold text-[#F7F5F2]">Active Alerts</span>
-                  <span className="text-[10px] text-[#A8A199]">{unreadAlerts} pending</span>
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-[var(--border-hairline)]">
+                  <span className="text-xs font-semibold text-[var(--text-primary)]">Active Alerts</span>
+                  <span className="text-[10px] text-[var(--text-secondary)]">{unreadAlerts} pending</span>
                 </div>
                 {recentAlerts.length === 0 ? (
-                  <div className="py-4 text-center text-xs text-[#A8A199]">
+                  <div className="py-4 text-center text-xs text-[var(--text-secondary)]">
                     No unacknowledged alerts. Grid is nominal.
                   </div>
                 ) : (
@@ -137,10 +137,10 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
                           setIsAlertsDropdownOpen(false);
                           navigate('/alerts');
                         }}
-                        className="p-2 rounded-xl bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)] cursor-pointer transition-colors"
+                        className="p-2 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-hairline)] cursor-pointer transition-colors"
                       >
                         <div className="flex items-center justify-between text-xs font-medium">
-                          <span className="text-[#F7F5F2]">{alert.zone?.name || 'Monitored Zone'}</span>
+                          <span className="text-[var(--text-primary)] font-semibold">{alert.zone?.name || 'Monitored Zone'}</span>
                           <span
                             className="text-[10px] font-bold uppercase"
                             style={{
@@ -157,7 +157,7 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
                             {alert.severity}
                           </span>
                         </div>
-                        <div className="text-[10px] text-[#A8A199] mt-0.5">
+                        <div className="text-[10px] text-[var(--text-secondary)] mt-0.5">
                           {alert.temperature ? `${alert.temperature.toFixed(1)}°C · ` : ''}
                           {alert.windSpeed ? `Wind ${alert.windSpeed.toFixed(0)} km/h` : ''}
                         </div>
@@ -185,11 +185,11 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
             onClick={() => navigate('/settings')}
           />
 
-          {/* Theme Toggle if available */}
+          {/* Theme Toggle Button */}
           {onThemeToggle && (
             <CircleIconButton
-              icon={theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
-              title="Toggle Theme"
+              icon={theme === 'dark' ? <Sun size={17} className="text-[#F5760A]" /> : <Moon size={17} className="text-[#38BDF8]" />}
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Theme`}
               onClick={onThemeToggle}
             />
           )}
@@ -198,19 +198,19 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-1.5 p-1 pl-1.5 rounded-full bg-[rgba(30,24,20,0.85)] hover:bg-[rgba(45,36,30,0.95)] border border-[rgba(255,255,255,0.08)] transition-all"
+              className="flex items-center gap-1.5 p-1 pl-1.5 rounded-full bg-[var(--bg-panel-raised)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-hairline)] transition-all shadow-sm"
             >
               <div className="w-7 h-7 rounded-full bg-[#F5760A] text-[#0C0A09] font-bold text-xs flex items-center justify-center">
                 AD
               </div>
-              <ChevronDown size={14} className="text-[#A8A199] mr-1 hidden sm:block" />
+              <ChevronDown size={14} className="text-[var(--text-secondary)] mr-1 hidden sm:block" />
             </button>
 
             {isProfileOpen && (
               <div className="absolute right-0 mt-2 w-48 rounded-2xl glass-panel-elevated p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 py-2 border-b border-[rgba(255,255,255,0.08)]">
-                  <div className="text-xs font-semibold text-[#F7F5F2]">Admin Operator</div>
-                  <div className="text-[10px] text-[#A8A199] truncate">admin@fireberg.com</div>
+                <div className="px-3 py-2 border-b border-[var(--border-hairline)]">
+                  <div className="text-xs font-semibold text-[var(--text-primary)]">Admin Operator</div>
+                  <div className="text-[10px] text-[var(--text-secondary)] truncate">admin@fireberg.com</div>
                 </div>
                 <div className="pt-1">
                   <button
@@ -218,7 +218,7 @@ export default function Topbar({ onLogout, onThemeToggle, theme = 'dark' }: Topb
                       setIsProfileOpen(false);
                       navigate('/settings');
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[#A8A199] hover:text-[#F7F5F2] hover:bg-[rgba(255,255,255,0.06)] rounded-xl transition-colors"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] rounded-xl transition-colors"
                   >
                     <SettingsIcon size={14} />
                     <span>Control Settings</span>

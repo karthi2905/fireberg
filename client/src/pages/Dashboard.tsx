@@ -184,10 +184,10 @@ export default function Dashboard() {
         <GlassCard className="p-4 h-[480px] lg:h-[560px] flex flex-col justify-between" elevated>
           {/* Header */}
           <div>
-            <div className="flex items-center justify-between pb-3 border-b border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#EF4444] animate-ping" />
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#F7F5F2]">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--text-primary)]">
                   Live Alerts
                 </h3>
               </div>
@@ -206,15 +206,15 @@ export default function Dashboard() {
             </div>
 
             {/* Severity filter tabs */}
-            <div className="flex items-center gap-1 my-3 p-1 rounded-full bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] overflow-x-auto">
+            <div className="flex items-center gap-1 my-3 p-1 rounded-full bg-[var(--bg-surface)] border border-[var(--border-hairline)] overflow-x-auto">
               {(['all', 'critical', 'high', 'medium', 'low'] as const).map((lvl) => (
                 <button
                   key={lvl}
                   onClick={() => setAlertSeverityFilter(lvl)}
-                  className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase transition-all ${
+                  className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase transition-all whitespace-nowrap ${
                     alertSeverityFilter === lvl
                       ? 'bg-[#F5760A] text-white shadow-sm'
-                      : 'text-[#A8A199] hover:text-[#F7F5F2]'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {lvl}
@@ -227,56 +227,56 @@ export default function Dashboard() {
           <div className="flex-1 overflow-y-auto space-y-2 pr-1 my-1">
             {isLoading ? (
               <>
-                <Skeleton className="h-16 rounded-xl bg-[rgba(255,255,255,0.04)]" />
-                <Skeleton className="h-16 rounded-xl bg-[rgba(255,255,255,0.04)]" />
-                <Skeleton className="h-16 rounded-xl bg-[rgba(255,255,255,0.04)]" />
+                <Skeleton className="h-16 rounded-xl bg-[var(--bg-surface)]" />
+                <Skeleton className="h-16 rounded-xl bg-[var(--bg-surface)]" />
+                <Skeleton className="h-16 rounded-xl bg-[var(--bg-surface)]" />
               </>
             ) : filteredAlerts.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#A8A199]">
+              <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[var(--text-secondary)]">
                 <div className="w-10 h-10 rounded-full bg-[rgba(34,197,94,0.12)] border border-[rgba(34,197,94,0.3)] text-[#22C55E] flex items-center justify-center mb-2">
                   <CheckCircle2 size={20} />
                 </div>
-                <div className="text-xs font-semibold text-[#F7F5F2]">No Active Alerts</div>
+                <div className="text-xs font-semibold text-[var(--text-primary)]">No Active Alerts</div>
                 <div className="text-[11px] mt-0.5">All monitored zones are currently nominal.</div>
               </div>
             ) : (
               filteredAlerts.map((alert) => (
                 <div
                   key={alert.id}
-                  className="group p-3 rounded-xl bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.06)] transition-all"
+                  className="group p-3 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-hairline)] transition-all"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <StatusPill status={alert.severity} pulse={alert.severity === 'critical'} />
                         {alert.acknowledged && (
-                          <span className="text-[9px] px-1.5 py-0.2 rounded bg-[rgba(245,158,11,0.2)] text-[#F59E0B]">
+                          <span className="text-[9px] px-1.5 py-0.2 rounded font-semibold bg-[rgba(245,158,11,0.18)] text-[#F59E0B]">
                             In Triage
                           </span>
                         )}
-                        <span className="text-[10px] text-[#A8A199] tabular-nums">
+                        <span className="text-[10px] text-[var(--text-secondary)] tabular-nums">
                           {formatRelativeTime(alert.createdAt)}
                         </span>
                       </div>
-                      <h4 className="text-xs font-semibold text-[#F7F5F2] truncate">
+                      <h4 className="text-xs font-bold text-[var(--text-primary)] truncate">
                         {alert.zone?.name || 'Monitored Forest Sector'}
                       </h4>
-                      <div className="flex items-center gap-3 mt-1.5 text-[11px] text-[#A8A199] tabular-nums">
+                      <div className="flex items-center gap-3 mt-1.5 text-[11px] text-[var(--text-secondary)] tabular-nums">
                         {alert.temperature && (
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-1 font-medium">
                             <Thermometer size={12} className="text-[#FB923C]" />
                             {alert.temperature.toFixed(0)}°C
                           </span>
                         )}
                         {alert.humidity && (
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-1 font-medium">
                             <Droplets size={12} className="text-[#38BDF8]" />
                             {alert.humidity.toFixed(0)}%
                           </span>
                         )}
                         {alert.windSpeed && (
-                          <span className="flex items-center gap-1">
-                            <Wind size={12} className="text-[#A8A199]" />
+                          <span className="flex items-center gap-1 font-medium">
+                            <Wind size={12} className="text-[var(--text-secondary)]" />
                             {alert.windSpeed.toFixed(0)} km/h
                           </span>
                         )}
@@ -284,7 +284,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Actions: Acknowledge or Resolve */}
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
                       {!alert.acknowledged ? (
                         <button
                           onClick={() => handleAcknowledge(alert.id)}
@@ -299,7 +299,7 @@ export default function Dashboard() {
                         onClick={() => handleResolve(alert.id)}
                         disabled={isAcknowledging === alert.id}
                         title="Resolve Incident"
-                        className="px-2 py-1 rounded-lg bg-[rgba(34,197,94,0.18)] hover:bg-[#22C55E] text-[#22C55E] hover:text-black text-[10px] font-bold transition-all disabled:opacity-50"
+                        className="px-2 py-1 rounded-lg bg-[rgba(34,197,94,0.18)] hover:bg-[#22C55E] text-[#22C55E] hover:text-white text-[10px] font-bold transition-all disabled:opacity-50"
                       >
                         Resolve
                       </button>
@@ -311,9 +311,9 @@ export default function Dashboard() {
           </div>
 
           {/* Footer Telemetry */}
-          <div className="pt-2 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-between text-[11px] text-[#A8A199]">
+          <div className="pt-2 border-t border-[var(--border-hairline)] flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
             <span>Sensors Polled: 1,472/sec</span>
-            <span className="text-[#22C55E] font-medium">99.98% Telemetry Uptime</span>
+            <span className="text-[#22C55E] font-semibold">99.98% Telemetry Uptime</span>
           </div>
         </GlassCard>
       </div>
@@ -323,11 +323,11 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Radio size={14} className="text-[#F5760A]" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#A8A199]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
               Live Environmental Telemetry (Sensor Grid)
             </h3>
           </div>
-          <span className="text-[11px] text-[#A8A199]">Updated 12s ago</span>
+          <span className="text-[11px] text-[var(--text-secondary)]">Updated 12s ago</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -371,14 +371,14 @@ export default function Dashboard() {
         {/* Panel 1 (Bottom-Left): Fire Analytics Panel with Segmented Progress Bars */}
         <GlassCard className="p-5 flex flex-col justify-between" elevated>
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-hairline)]">
               <div className="flex items-center gap-2">
                 <Layers size={16} className="text-[#F5760A]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
                   Containment & Area Telemetry
                 </h3>
               </div>
-              <span className="text-[10px] uppercase font-bold text-[#A8A199] bg-[rgba(255,255,255,0.06)] px-2 py-0.5 rounded">
+              <span className="text-[10px] uppercase font-bold text-[var(--text-secondary)] bg-[var(--bg-surface)] px-2 py-0.5 rounded border border-[var(--border-hairline)]">
                 CAL FIRE GRID
               </span>
             </div>
@@ -426,14 +426,14 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-5 pt-3 border-t border-[rgba(255,255,255,0.08)] grid grid-cols-2 gap-2 text-[11px]">
+          <div className="mt-5 pt-3 border-t border-[var(--border-hairline)] grid grid-cols-2 gap-2 text-[11px]">
             <div>
-              <span className="text-[#A8A199]">Perimeter Scorch:</span>{' '}
-              <strong className="text-[#F7F5F2] tabular-nums">18.4 km</strong>
+              <span className="text-[var(--text-secondary)]">Perimeter Scorch:</span>{' '}
+              <strong className="text-[var(--text-primary)] tabular-nums">18.4 km</strong>
             </div>
             <div>
-              <span className="text-[#A8A199]">Protected Assets:</span>{' '}
-              <strong className="text-[#22C55E] tabular-nums">142 Structures</strong>
+              <span className="text-[var(--text-secondary)]">Protected Assets:</span>{' '}
+              <strong className="text-[#22C55E] tabular-nums font-bold">142 Structures</strong>
             </div>
           </div>
         </GlassCard>
@@ -441,10 +441,10 @@ export default function Dashboard() {
         {/* Panel 2 (Bottom-Center): Incident Detection Panel with Compass Widget */}
         <GlassCard className="p-5 flex flex-col justify-between" elevated>
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-hairline)]">
               <div className="flex items-center gap-2">
                 <Compass size={16} className="text-[#F5760A]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
                   Incident Vector & Propagation
                 </h3>
               </div>
@@ -452,51 +452,51 @@ export default function Dashboard() {
             </div>
 
             {/* Compass & Wind Propagation Visualization */}
-            <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] flex items-center justify-between gap-4 mb-4">
+            <div className="p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-hairline)] flex items-center justify-between gap-4 mb-4">
               <div className="relative w-20 h-20 flex items-center justify-center rounded-full bg-[rgba(245,118,10,0.08)] border border-[rgba(245,118,10,0.25)]">
                 {/* Compass ticks */}
-                <span className="absolute top-1 text-[8px] font-bold text-[#A8A199]">N</span>
-                <span className="absolute right-1 text-[8px] font-bold text-[#A8A199]">E</span>
-                <span className="absolute bottom-1 text-[8px] font-bold text-[#A8A199]">S</span>
-                <span className="absolute left-1 text-[8px] font-bold text-[#A8A199]">W</span>
+                <span className="absolute top-1 text-[8px] font-bold text-[var(--text-secondary)]">N</span>
+                <span className="absolute right-1 text-[8px] font-bold text-[var(--text-secondary)]">E</span>
+                <span className="absolute bottom-1 text-[8px] font-bold text-[var(--text-secondary)]">S</span>
+                <span className="absolute left-1 text-[8px] font-bold text-[var(--text-secondary)]">W</span>
 
                 {/* Rotating arrow indicating NW 315 deg */}
                 <div
                   className="w-12 h-1 bg-[#EF4444] rounded-full transition-transform"
                   style={{ transform: 'rotate(-45deg)' }}
                 >
-                  <div className="w-2 h-2 rounded-full bg-white ml-auto" />
+                  <div className="w-2 h-2 rounded-full bg-white ml-auto shadow-sm" />
                 </div>
                 <div className="absolute w-2 h-2 rounded-full bg-[#F5760A]" />
               </div>
 
               <div className="flex-1">
-                <div className="text-[10px] uppercase font-bold text-[#A8A199]">Dominant Spread Vector</div>
-                <div className="text-sm font-bold text-[#F7F5F2] mt-0.5">North-West (315°)</div>
-                <div className="text-[11px] text-[#FB923C] mt-1">
+                <div className="text-[10px] uppercase font-bold text-[var(--text-secondary)]">Dominant Spread Vector</div>
+                <div className="text-sm font-bold text-[var(--text-primary)] mt-0.5">North-West (315°)</div>
+                <div className="text-[11px] text-[#FB923C] font-medium mt-1">
                   Speed: <strong>28 km/h</strong> · Gusting 46 km/h
                 </div>
-                <div className="text-[10px] text-[#A8A199] mt-0.5">
-                  Est. forward spread: <strong>1.4 km/h</strong>
+                <div className="text-[10px] text-[var(--text-secondary)] mt-0.5">
+                  Est. forward spread: <strong className="text-[var(--text-primary)]">1.4 km/h</strong>
                 </div>
               </div>
             </div>
 
             {/* Active Detection Points List */}
             <div className="space-y-1.5">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#A8A199] mb-1">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-1">
                 Primary Thermal Detection Points
               </div>
               {zones.slice(0, 3).map((z, idx) => (
                 <div
                   key={z.id || idx}
-                  className="px-2.5 py-1.5 rounded-lg bg-[rgba(255,255,255,0.03)] flex items-center justify-between text-xs"
+                  className="px-2.5 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-hairline)] flex items-center justify-between text-xs"
                 >
                   <div className="flex items-center gap-2 truncate">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]" />
-                    <span className="text-[#F7F5F2] font-medium truncate">{z.name}</span>
+                    <span className="text-[var(--text-primary)] font-semibold truncate">{z.name}</span>
                   </div>
-                  <span className="text-[10px] text-[#A8A199] tabular-nums font-mono">
+                  <span className="text-[10px] text-[var(--text-secondary)] tabular-nums font-mono">
                     {z.latitude.toFixed(2)}°N, {Math.abs(z.longitude).toFixed(2)}°W
                   </span>
                 </div>
@@ -504,7 +504,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[rgba(255,255,255,0.08)] text-[11px] text-[#A8A199] flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-[var(--border-hairline)] text-[11px] text-[var(--text-secondary)] flex items-center justify-between">
             <span>Thermal Radiance: 480 MW</span>
             <span className="text-[#FB923C] font-semibold">High Flame Front</span>
           </div>
@@ -513,10 +513,10 @@ export default function Dashboard() {
         {/* Panel 3 (Bottom-Right): Response Team Panel */}
         <GlassCard className="p-5 flex flex-col justify-between" elevated>
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-hairline)]">
               <div className="flex items-center gap-2">
                 <Activity size={16} className="text-[#F5760A]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
                   Response Units & Crews
                 </h3>
               </div>
@@ -528,26 +528,26 @@ export default function Dashboard() {
             {/* Response Crew Cards */}
             <div className="space-y-2.5">
               {/* Unit 1 */}
-              <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.06)] transition-all">
+              <div className="p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-hairline)] hover:bg-[var(--bg-surface-hover)] transition-all">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-full bg-[#F5760A] text-[#0C0A09] font-bold text-xs flex items-center justify-center">
                       ST
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-[#F7F5F2]">Strike Team Alpha</div>
-                      <div className="text-[10px] text-[#A8A199]">Cpt. Marcus Vance · Sector 4</div>
+                      <div className="text-xs font-bold text-[var(--text-primary)]">Strike Team Alpha</div>
+                      <div className="text-[10px] text-[var(--text-secondary)]">Cpt. Marcus Vance · Sector 4</div>
                     </div>
                   </div>
                   <StatusPill status="in-progress" label="ENGAGED" />
                 </div>
-                <div className="flex items-center justify-between gap-2 pt-2 border-t border-[rgba(255,255,255,0.06)]">
-                  <span className="text-[10px] text-[#A8A199]">Bulldozer & 4 Engines</span>
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-[var(--border-hairline)]">
+                  <span className="text-[10px] text-[var(--text-secondary)] font-medium">Bulldozer & 4 Engines</span>
                   <div className="flex items-center gap-1.5">
-                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[rgba(255,255,255,0.08)] hover:bg-[#F5760A] hover:text-white text-[#F7F5F2] transition-colors flex items-center gap-1">
+                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[var(--bg-surface-hover)] hover:bg-[#F5760A] hover:text-white text-[var(--text-primary)] border border-[var(--border-hairline)] transition-colors flex items-center gap-1">
                       <PhoneCall size={10} /> Call
                     </button>
-                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.14)] text-[#F7F5F2] transition-colors flex items-center gap-1">
+                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[var(--bg-surface-hover)] hover:bg-[var(--bg-surface-active)] text-[var(--text-primary)] border border-[var(--border-hairline)] transition-colors flex items-center gap-1">
                       <MapPin size={10} /> Track
                     </button>
                   </div>
@@ -555,26 +555,26 @@ export default function Dashboard() {
               </div>
 
               {/* Unit 2 */}
-              <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.06)] transition-all">
+              <div className="p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-hairline)] hover:bg-[var(--bg-surface-hover)] transition-all">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-full bg-[#38BDF8] text-[#0C0A09] font-bold text-xs flex items-center justify-center">
                       HT
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-[#F7F5F2]">Helitack Unit 03</div>
-                      <div className="text-[10px] text-[#A8A199]">Aerial Retardant Drop</div>
+                      <div className="text-xs font-bold text-[var(--text-primary)]">Helitack Unit 03</div>
+                      <div className="text-[10px] text-[var(--text-secondary)]">Aerial Retardant Drop</div>
                     </div>
                   </div>
                   <StatusPill status="active" label="AIRBORNE" />
                 </div>
-                <div className="flex items-center justify-between gap-2 pt-2 border-t border-[rgba(255,255,255,0.06)]">
-                  <span className="text-[10px] text-[#A8A199]">1,200 Gal Payload</span>
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-[var(--border-hairline)]">
+                  <span className="text-[10px] text-[var(--text-secondary)] font-medium">1,200 Gal Payload</span>
                   <div className="flex items-center gap-1.5">
-                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[rgba(255,255,255,0.08)] hover:bg-[#F5760A] hover:text-white text-[#F7F5F2] transition-colors flex items-center gap-1">
+                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[var(--bg-surface-hover)] hover:bg-[#F5760A] hover:text-white text-[var(--text-primary)] border border-[var(--border-hairline)] transition-colors flex items-center gap-1">
                       <PhoneCall size={10} /> Radio
                     </button>
-                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.14)] text-[#F7F5F2] transition-colors flex items-center gap-1">
+                    <button className="px-2 py-1 rounded-md text-[10px] font-semibold bg-[var(--bg-surface-hover)] hover:bg-[var(--bg-surface-active)] text-[var(--text-primary)] border border-[var(--border-hairline)] transition-colors flex items-center gap-1">
                       <MapPin size={10} /> Track
                     </button>
                   </div>
@@ -583,9 +583,9 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[rgba(255,255,255,0.08)] text-[11px] text-[#A8A199] flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-[var(--border-hairline)] text-[11px] text-[var(--text-secondary)] flex items-center justify-between">
             <span>Air Corridor: Clear</span>
-            <span className="text-[#22C55E] font-medium">Comms Frequency 148.25 MHz</span>
+            <span className="text-[#22C55E] font-semibold">Comms Frequency 148.25 MHz</span>
           </div>
         </GlassCard>
       </div>

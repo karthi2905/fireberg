@@ -4,13 +4,15 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
         canvas: {
-          DEFAULT: '#0C0A09',
-          subtle: '#130F0C',
-          deep: '#070605',
+          DEFAULT: 'var(--bg-canvas)',
+          subtle: 'var(--bg-canvas-subtle)',
+          panel: 'var(--bg-panel)',
+          'panel-raised': 'var(--bg-panel-raised)',
         },
         accent: {
           DEFAULT: '#F5760A',
@@ -19,19 +21,19 @@ export default {
           subtle: 'rgba(245, 118, 10, 0.15)',
         },
         severity: {
-          low: '#22C55E',
-          medium: '#F59E0B',
-          high: '#FB923C',
-          critical: '#EF4444',
+          low: 'var(--severity-low)',
+          medium: 'var(--severity-medium)',
+          high: 'var(--severity-high)',
+          critical: 'var(--severity-critical)',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 1px 2px 0 rgba(0, 0, 0, 0.25)',
-        'glass-lg': '0 16px 48px 0 rgba(0, 0, 0, 0.55), 0 2px 4px 0 rgba(0, 0, 0, 0.3)',
-        'glass-sm': '0 4px 16px 0 rgba(0, 0, 0, 0.35)',
+        glass: 'var(--shadow-glass)',
+        'glass-lg': 'var(--shadow-glass-lg)',
+        'glass-sm': 'var(--shadow-glass-sm)',
       },
       borderRadius: {
         'xl': '12px',

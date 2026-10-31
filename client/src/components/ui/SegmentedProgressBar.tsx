@@ -27,8 +27,8 @@ export function SegmentedProgressBar({
   return (
     <div className={cn('w-full flex flex-col gap-1.5', className)}>
       <div className="flex items-center justify-between text-xs">
-        <span className="font-medium text-[#F7F5F2]">{label}</span>
-        <span className="tabular-nums font-semibold text-[#F7F5F2]">
+        <span className="font-semibold text-[var(--text-primary)]">{label}</span>
+        <span className="tabular-nums font-bold text-[var(--text-primary)]">
           {valueDisplay || `${Math.round(percentage)}%`}
         </span>
       </div>
@@ -42,7 +42,7 @@ export function SegmentedProgressBar({
               key={index}
               className={cn(
                 'flex-1 h-full rounded-[1px] transition-all duration-300',
-                isActive ? 'opacity-100' : 'bg-[rgba(255,255,255,0.08)] opacity-40'
+                isActive ? 'opacity-100' : 'bg-[var(--bg-surface-active)] opacity-70'
               )}
               style={
                 isActive
@@ -57,7 +57,7 @@ export function SegmentedProgressBar({
       </div>
 
       {subtext && (
-        <span className="text-[10px] text-[#A8A199] mt-0.5">{subtext}</span>
+        <span className="text-[10px] text-[var(--text-secondary)] mt-0.5">{subtext}</span>
       )}
     </div>
   );

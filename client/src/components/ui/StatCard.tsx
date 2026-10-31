@@ -28,11 +28,11 @@ export function StatCard({
   return (
     <GlassCard className={cn('p-4 flex flex-col justify-between min-w-[140px]', className)}>
       <div className="flex items-center justify-between gap-2 mb-1.5">
-        <span className="text-[11px] font-medium uppercase tracking-wider text-[#A8A199]">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
           {label}
         </span>
         {icon && (
-          <div className="text-[#A8A199] opacity-80">
+          <div className="opacity-80">
             {icon}
           </div>
         )}
@@ -40,7 +40,7 @@ export function StatCard({
 
       <div className="my-0.5">
         <span
-          className="text-[26px] md:text-[28px] font-bold text-[#F7F5F2] tabular-nums tracking-tight leading-none"
+          className="text-[26px] md:text-[28px] font-bold text-[var(--text-primary)] tabular-nums tracking-tight leading-none"
           style={accentColor ? { color: accentColor } : undefined}
         >
           {value}
@@ -48,13 +48,13 @@ export function StatCard({
       </div>
 
       {(subValue || trend) && (
-        <div className="flex items-center gap-2 mt-2 pt-1 border-t border-[rgba(255,255,255,0.06)]">
+        <div className="flex items-center gap-2 mt-2 pt-1.5 border-t border-[var(--border-hairline)]">
           {trend && (
             <span
               className={cn(
                 'text-[11px] font-medium px-1.5 py-0.5 rounded',
                 trend.neutral
-                  ? 'bg-[rgba(255,255,255,0.08)] text-[#A8A199]'
+                  ? 'bg-[var(--bg-surface-hover)] text-[var(--text-secondary)]'
                   : trend.isPositive
                   ? 'bg-[rgba(34,197,94,0.14)] text-[#22C55E]'
                   : 'bg-[rgba(239,68,68,0.14)] text-[#EF4444]'
@@ -64,7 +64,7 @@ export function StatCard({
             </span>
           )}
           {subValue && (
-            <span className="text-[11px] text-[#A8A199] truncate font-normal">
+            <span className="text-[11px] text-[var(--text-secondary)] truncate font-normal">
               {subValue}
             </span>
           )}

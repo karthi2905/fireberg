@@ -138,16 +138,16 @@ export default function Reports() {
       {/* Reports Table Panel */}
       <GlassCard className="p-5" elevated>
         {/* Controls Toolbar */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 mb-4 border-b border-[var(--border-hairline)]">
           <div className="flex flex-wrap items-center gap-2">
             {/* Status Pills Filter */}
-            <div className="flex items-center gap-1 p-1 rounded-full bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)]">
+            <div className="flex items-center gap-1 p-1 rounded-full bg-[var(--bg-surface)] border border-[var(--border-hairline)] overflow-x-auto">
               <button
                 onClick={() => setSelectedStatus('all')}
-                className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase transition-all ${
+                className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase transition-all whitespace-nowrap ${
                   selectedStatus === 'all'
                     ? 'bg-[#F5760A] text-white shadow-sm'
-                    : 'text-[#A8A199] hover:text-[#F7F5F2]'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 All
@@ -158,10 +158,10 @@ export default function Reports() {
                   <button
                     key={status}
                     onClick={() => setSelectedStatus(status)}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase transition-all ${
+                    className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase transition-all whitespace-nowrap ${
                       isActive
                         ? 'bg-[#F5760A] text-white shadow-sm'
-                        : 'text-[#A8A199] hover:text-[#F7F5F2]'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     {status === 'in-progress' ? 'In Progress' : status}
@@ -176,14 +176,14 @@ export default function Reports() {
             <div className="relative flex-1 md:w-60">
               <Search
                 size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#A8A199]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]"
               />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search sector or crew..."
-                className="w-full h-8 pl-8 pr-3 rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.08)] text-xs text-[#F7F5F2] placeholder:text-[#6B635B] focus:outline-none focus:border-[#F5760A]"
+                className="w-full h-8 pl-8 pr-3 rounded-full bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-xs text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#F5760A]"
               />
             </div>
 
@@ -202,79 +202,79 @@ export default function Reports() {
         </div>
 
         {/* Frosted Table */}
-        <div className="overflow-x-auto rounded-xl border border-[rgba(255,255,255,0.06)]">
+        <div className="overflow-x-auto rounded-xl border border-[var(--border-hairline)]">
           {isLoading ? (
             <div className="p-4 space-y-3">
-              <Skeleton className="h-12 rounded-lg bg-[rgba(255,255,255,0.03)]" />
-              <Skeleton className="h-12 rounded-lg bg-[rgba(255,255,255,0.03)]" />
-              <Skeleton className="h-12 rounded-lg bg-[rgba(255,255,255,0.03)]" />
+              <Skeleton className="h-12 rounded-lg bg-[var(--bg-surface)]" />
+              <Skeleton className="h-12 rounded-lg bg-[var(--bg-surface)]" />
+              <Skeleton className="h-12 rounded-lg bg-[var(--bg-surface)]" />
             </div>
           ) : filteredReports.length === 0 ? (
-            <div className="py-16 text-center text-[#A8A199]">
+            <div className="py-16 text-center text-[var(--text-secondary)]">
               <FileText size={32} className="mx-auto mb-2 opacity-40" />
-              <div className="text-sm font-semibold text-[#F7F5F2]">No Incident Reports</div>
-              <div className="text-xs text-[#A8A199] mt-0.5">
+              <div className="text-sm font-semibold text-[var(--text-primary)]">No Incident Reports</div>
+              <div className="text-xs text-[var(--text-secondary)] mt-0.5">
                 No matching filed reports found for this query filter.
               </div>
             </div>
           ) : (
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px]">
+                <tr className="border-b border-[var(--border-hairline)] bg-[var(--bg-surface)]">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px]">
                     <div className="flex items-center gap-1.5">
                       <MapPin size={13} className="text-[#F5760A]" />
                       <span>Sector / Zone</span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px]">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px]">
                     <div className="flex items-center gap-1.5">
                       <Flame size={13} className="text-[#EF4444]" />
                       <span>Affected Area</span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px]">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px]">
                     <div className="flex items-center gap-1.5">
                       <DollarSign size={13} className="text-[#22C55E]" />
                       <span>Est. Damage</span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px]">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px]">
                     <div className="flex items-center gap-1.5">
                       <Activity size={13} className="text-[#38BDF8]" />
                       <span>Current Status</span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px]">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px]">
                     <div className="flex items-center gap-1.5">
-                      <Calendar size={13} className="text-[#A8A199]" />
+                      <Calendar size={13} className="text-[var(--text-secondary)]" />
                       <span>Reported Date</span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px]">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px]">
                     <div className="flex items-center gap-1.5">
-                      <User size={13} className="text-[#A8A199]" />
+                      <User size={13} className="text-[var(--text-secondary)]" />
                       <span>Filed By</span>
                     </div>
                   </th>
-                  <th className="px-4 py-3 font-semibold text-[#A8A199] uppercase tracking-wider text-[11px] text-right">
+                  <th className="px-4 py-3 font-semibold text-[var(--text-secondary)] uppercase tracking-wider text-[11px] text-right">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[rgba(255,255,255,0.04)]">
+              <tbody className="divide-y divide-[var(--border-hairline)]">
                 {filteredReports.map((report) => (
                   <tr
                     key={report.id}
-                    className="hover:bg-[rgba(255,255,255,0.04)] transition-colors group"
+                    className="hover:bg-[var(--bg-surface-hover)] transition-colors group"
                   >
-                    <td className="px-4 py-3 font-bold text-[#F7F5F2]">
+                    <td className="px-4 py-3 font-bold text-[var(--text-primary)]">
                       {report.zone?.name || 'Monitored Sector'}
                     </td>
-                    <td className="px-4 py-3 tabular-nums font-semibold text-[#F7F5F2]">
-                      {report.areaHectares.toFixed(1)} <span className="text-[#A8A199] font-normal">ha</span>
+                    <td className="px-4 py-3 tabular-nums font-semibold text-[var(--text-primary)]">
+                      {report.areaHectares.toFixed(1)} <span className="text-[var(--text-secondary)] font-normal">ha</span>
                     </td>
-                    <td className="px-4 py-3 tabular-nums text-[#A8A199]">
+                    <td className="px-4 py-3 tabular-nums text-[var(--text-secondary)] font-medium">
                       {report.estimatedDamage
                         ? `$${report.estimatedDamage.toLocaleString()}`
                         : '—'}
@@ -282,24 +282,24 @@ export default function Reports() {
                     <td className="px-4 py-3">
                       <StatusPill status={report.status} />
                     </td>
-                    <td className="px-4 py-3 text-[#A8A199] tabular-nums">
+                    <td className="px-4 py-3 text-[var(--text-secondary)] tabular-nums">
                       {new Date(report.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-3 text-[#A8A199]">
+                    <td className="px-4 py-3 text-[var(--text-secondary)]">
                       {report.reportedBy || 'CAL FIRE Unit'}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => handleEdit(report)}
-                          className="px-2.5 py-1 rounded-lg text-xs font-semibold text-[#A8A199] hover:text-[#F7F5F2] hover:bg-[rgba(255,255,255,0.08)] transition-all flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-lg text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-hairline)] transition-all flex items-center gap-1"
                         >
                           <Edit2 size={12} />
                           <span>Edit</span>
                         </button>
                         <button
                           onClick={() => handleDelete(report.id)}
-                          className="p-1 rounded-lg text-[#A8A199] hover:text-[#EF4444] hover:bg-[rgba(239,68,68,0.12)] transition-all"
+                          className="p-1 rounded-lg text-[var(--text-secondary)] hover:text-[#EF4444] hover:bg-[rgba(239,68,68,0.12)] transition-all"
                           title="Delete report"
                         >
                           <Trash2 size={13} />

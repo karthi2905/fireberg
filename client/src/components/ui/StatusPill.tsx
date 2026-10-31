@@ -31,50 +31,50 @@ export function StatusPill({
 }: StatusPillProps) {
   const normalized = status.toLowerCase();
 
-  let defaultColor = '#A8A199';
-  let defaultBg = 'rgba(255, 255, 255, 0.08)';
-  let defaultBorder = 'rgba(255, 255, 255, 0.12)';
+  let defaultColor = 'var(--text-secondary)';
+  let defaultBg = 'var(--bg-surface-hover)';
+  let defaultBorder = 'var(--border-hairline)';
   let defaultIcon: React.ReactNode = <Info size={12} />;
 
   switch (normalized) {
     case 'critical':
-      defaultColor = '#EF4444';
-      defaultBg = 'rgba(239, 68, 68, 0.16)';
-      defaultBorder = 'rgba(239, 68, 68, 0.35)';
+      defaultColor = 'var(--severity-critical)';
+      defaultBg = 'var(--severity-critical-bg)';
+      defaultBorder = 'rgba(239, 68, 68, 0.32)';
       defaultIcon = <Flame size={12} />;
       break;
     case 'high':
-      defaultColor = '#FB923C';
-      defaultBg = 'rgba(251, 146, 60, 0.16)';
-      defaultBorder = 'rgba(251, 146, 60, 0.35)';
+      defaultColor = 'var(--severity-high)';
+      defaultBg = 'var(--severity-high-bg)';
+      defaultBorder = 'rgba(249, 115, 22, 0.32)';
       defaultIcon = <AlertTriangle size={12} />;
       break;
     case 'medium':
     case 'in-progress':
-      defaultColor = '#F59E0B';
-      defaultBg = 'rgba(245, 158, 11, 0.16)';
-      defaultBorder = 'rgba(245, 158, 11, 0.35)';
+      defaultColor = 'var(--severity-medium)';
+      defaultBg = 'var(--severity-medium-bg)';
+      defaultBorder = 'rgba(245, 158, 11, 0.32)';
       defaultIcon = <Radio size={12} />;
       break;
     case 'low':
     case 'contained':
     case 'resolved':
     case 'nominal':
-      defaultColor = '#22C55E';
-      defaultBg = 'rgba(34, 197, 94, 0.16)';
-      defaultBorder = 'rgba(34, 197, 94, 0.35)';
+      defaultColor = 'var(--severity-low)';
+      defaultBg = 'var(--severity-low-bg)';
+      defaultBorder = 'rgba(34, 197, 94, 0.32)';
       defaultIcon = <CheckCircle size={12} />;
       break;
     case 'reported':
-      defaultColor = '#FB923C';
-      defaultBg = 'rgba(251, 146, 60, 0.16)';
-      defaultBorder = 'rgba(251, 146, 60, 0.35)';
+      defaultColor = 'var(--severity-high)';
+      defaultBg = 'var(--severity-high-bg)';
+      defaultBorder = 'rgba(249, 115, 22, 0.32)';
       defaultIcon = <ShieldAlert size={12} />;
       break;
     case 'active':
-      defaultColor = '#F5760A';
-      defaultBg = 'rgba(245, 118, 10, 0.16)';
-      defaultBorder = 'rgba(245, 118, 10, 0.35)';
+      defaultColor = 'var(--accent)';
+      defaultBg = 'rgba(245, 118, 10, 0.14)';
+      defaultBorder = 'rgba(245, 118, 10, 0.32)';
       defaultIcon = <Flame size={12} />;
       break;
   }
@@ -88,7 +88,7 @@ export function StatusPill({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium tracking-wide uppercase',
+        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase',
         className
       )}
       style={{

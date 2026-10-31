@@ -83,7 +83,7 @@ export default function MapHero({
     return L.divIcon({
       className: 'custom-marker',
       html: `
-        <div style="position: relative; width: ${size * 2}px; height: ${size * 2}px; display: flex; items-align: center; justify-content: center;">
+        <div style="position: relative; width: ${size * 2}px; height: ${size * 2}px; display: flex; align-items: center; justify-content: center;">
           ${
             isCritical
               ? `<div style="position: absolute; inset: 0; border-radius: 50%; background-color: rgba(239, 68, 68, 0.4); animation: marker-pulse 2s infinite ease-out;"></div>`
@@ -119,7 +119,7 @@ export default function MapHero({
   if (isLoading) {
     return (
       <div className="w-full relative rounded-2xl overflow-hidden glass-panel h-[480px] lg:h-[560px]">
-        <Skeleton className="absolute inset-0 bg-[rgba(255,255,255,0.03)]" />
+        <Skeleton className="absolute inset-0 bg-[var(--bg-surface)]" />
       </div>
     );
   }
@@ -129,48 +129,48 @@ export default function MapHero({
       {/* 1. Floating Stat Cards (Overlaid Top-Left) */}
       <div className="absolute top-4 left-4 z-[1000] flex flex-wrap gap-2.5 max-w-[calc(100%-32px)] pointer-events-none">
         {/* Card 1: Active Zones */}
-        <div className="pointer-events-auto px-3.5 py-2.5 rounded-xl bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] shadow-glass-sm min-w-[130px]">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-[#A8A199]">
+        <div className="pointer-events-auto px-3.5 py-2.5 rounded-xl bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] shadow-glass-sm min-w-[130px]">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
             Active Zones
           </div>
-          <div className="text-[20px] font-bold text-[#F7F5F2] tabular-nums leading-tight mt-0.5">
+          <div className="text-[20px] font-bold text-[var(--text-primary)] tabular-nums leading-tight mt-0.5">
             {activeZonesCount ?? zones.length}
             <span className="text-[11px] font-medium text-[#22C55E] ml-1.5">● Nominal</span>
           </div>
-          <div className="text-[10px] text-[#A8A199] mt-1 pt-1 border-t border-[rgba(255,255,255,0.06)]">
+          <div className="text-[10px] text-[var(--text-secondary)] mt-1 pt-1 border-t border-[var(--border-hairline)]">
             Coverage: 98.4%
           </div>
         </div>
 
         {/* Card 2: Monitored Area */}
-        <div className="pointer-events-auto px-3.5 py-2.5 rounded-xl bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] shadow-glass-sm min-w-[140px]">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-[#A8A199]">
+        <div className="pointer-events-auto px-3.5 py-2.5 rounded-xl bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] shadow-glass-sm min-w-[140px]">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
             Monitored Area
           </div>
-          <div className="text-[20px] font-bold text-[#F7F5F2] tabular-nums leading-tight mt-0.5">
-            {totalAreaHectares.toLocaleString()} <span className="text-xs font-normal text-[#A8A199]">ha</span>
+          <div className="text-[20px] font-bold text-[var(--text-primary)] tabular-nums leading-tight mt-0.5">
+            {totalAreaHectares.toLocaleString()} <span className="text-xs font-normal text-[var(--text-secondary)]">ha</span>
           </div>
-          <div className="text-[10px] text-[#A8A199] mt-1 pt-1 border-t border-[rgba(255,255,255,0.06)]">
+          <div className="text-[10px] text-[var(--text-secondary)] mt-1 pt-1 border-t border-[var(--border-hairline)]">
             Sensor nodes: {zones.length * 8} active
           </div>
         </div>
 
         {/* Card 3: Avg Response */}
-        <div className="pointer-events-auto px-3.5 py-2.5 rounded-xl bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] shadow-glass-sm min-w-[130px] hidden sm:block">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-[#A8A199]">
+        <div className="pointer-events-auto px-3.5 py-2.5 rounded-xl bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] shadow-glass-sm min-w-[130px] hidden sm:block">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
             Avg. Response
           </div>
-          <div className="text-[20px] font-bold text-[#F7F5F2] tabular-nums leading-tight mt-0.5">
-            {avgResponseTimeMin} <span className="text-xs font-normal text-[#A8A199]">min</span>
+          <div className="text-[20px] font-bold text-[var(--text-primary)] tabular-nums leading-tight mt-0.5">
+            {avgResponseTimeMin} <span className="text-xs font-normal text-[var(--text-secondary)]">min</span>
           </div>
-          <div className="text-[10px] text-[#22C55E] mt-1 pt-1 border-t border-[rgba(255,255,255,0.06)]">
+          <div className="text-[10px] text-[#22C55E] mt-1 pt-1 border-t border-[var(--border-hairline)]">
             SLA Target: &lt;20 min
           </div>
         </div>
 
         {/* Warning chip if critical zones detected */}
         {criticalCount > 0 && (
-          <div className="pointer-events-auto flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[rgba(239,68,68,0.2)] backdrop-blur-md border border-[rgba(239,68,68,0.4)] text-[#EF4444] shadow-glass-sm animate-pulse">
+          <div className="pointer-events-auto flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[rgba(239,68,68,0.18)] backdrop-blur-md border border-[rgba(239,68,68,0.4)] text-[#EF4444] shadow-glass-sm animate-pulse">
             <ShieldAlert size={14} />
             <span className="text-[11px] font-bold uppercase tracking-wider">
               {criticalCount} Critical Incident{criticalCount > 1 ? 's' : ''}
@@ -180,7 +180,7 @@ export default function MapHero({
       </div>
 
       {/* 2. Top-Right Quick Filter Controls */}
-      <div className="absolute top-4 right-4 z-[1000] flex items-center gap-1 p-1 rounded-full bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] shadow-glass-sm">
+      <div className="absolute top-4 right-4 z-[1000] flex items-center gap-1 p-1 rounded-full bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] shadow-glass-sm">
         {(['all', 'critical', 'high', 'medium', 'low'] as const).map((filter) => {
           const isActive = selectedFilter === filter;
           return (
@@ -190,7 +190,7 @@ export default function MapHero({
               className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase transition-all ${
                 isActive
                   ? 'bg-[#F5760A] text-white shadow-sm'
-                  : 'text-[#A8A199] hover:text-[#F7F5F2] hover:bg-[rgba(255,255,255,0.06)]'
+                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
               }`}
             >
               {filter}
@@ -200,16 +200,16 @@ export default function MapHero({
       </div>
 
       {/* 3. Bottom-Left Live Telemetry Badge */}
-      <div className="absolute bottom-4 left-4 z-[1000] flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] text-[#A8A199] text-[11px]">
+      <div className="absolute bottom-4 left-4 z-[1000] flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] text-[var(--text-secondary)] text-[11px] shadow-glass-sm">
         <Radio size={13} className="text-[#F5760A] animate-pulse" />
         <span>Satellite Feed: Live (NASA FIRMS & Ground Sensors)</span>
       </div>
 
-      {/* Leaflet Map with CartoDB Dark Matter Tiles */}
+      {/* Leaflet Map */}
       <MapContainer
         center={[37.8, -120.0]}
         zoom={6}
-        style={{ height: '100%', width: '100%', background: '#0C0A09' }}
+        style={{ height: '100%', width: '100%', background: 'var(--bg-canvas)' }}
         className="z-0"
       >
         <TileLayer
@@ -228,31 +228,31 @@ export default function MapHero({
             }}
           >
             <Popup className="custom-popup">
-              <div className="p-3 min-w-[210px] bg-[#140F0C] rounded-xl text-[#F7F5F2]">
+              <div className="p-3 min-w-[210px] bg-[var(--bg-panel-raised)] rounded-xl text-[var(--text-primary)]">
                 <div className="flex items-center justify-between gap-2 mb-1.5">
-                  <h4 className="text-[13px] font-bold text-[#F7F5F2] truncate">{zone.name}</h4>
+                  <h4 className="text-[13px] font-bold text-[var(--text-primary)] truncate">{zone.name}</h4>
                   <StatusPill status={zone.riskLevel} />
                 </div>
-                <div className="text-[10px] text-[#A8A199] mb-3 tabular-nums">
+                <div className="text-[10px] text-[var(--text-secondary)] mb-3 tabular-nums font-mono">
                   {zone.latitude.toFixed(4)}°N, {Math.abs(zone.longitude).toFixed(4)}°W
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 p-2 rounded-lg bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] text-center">
+                <div className="grid grid-cols-3 gap-2 p-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-center">
                   <div>
-                    <div className="text-[9px] uppercase tracking-wider text-[#A8A199]">Temp</div>
-                    <div className="text-[12px] font-semibold text-[#F7F5F2] tabular-nums mt-0.5">
+                    <div className="text-[9px] uppercase tracking-wider text-[var(--text-secondary)] font-semibold">Temp</div>
+                    <div className="text-[12px] font-bold text-[var(--text-primary)] tabular-nums mt-0.5">
                       {zone.temperature ? `${zone.temperature.toFixed(0)}°C` : '—'}
                     </div>
                   </div>
                   <div>
-                    <div className="text-[9px] uppercase tracking-wider text-[#A8A199]">Humid</div>
-                    <div className="text-[12px] font-semibold text-[#F7F5F2] tabular-nums mt-0.5">
+                    <div className="text-[9px] uppercase tracking-wider text-[var(--text-secondary)] font-semibold">Humid</div>
+                    <div className="text-[12px] font-bold text-[var(--text-primary)] tabular-nums mt-0.5">
                       {zone.humidity ? `${zone.humidity.toFixed(0)}%` : '—'}
                     </div>
                   </div>
                   <div>
-                    <div className="text-[9px] uppercase tracking-wider text-[#A8A199]">Wind</div>
-                    <div className="text-[12px] font-semibold text-[#F7F5F2] tabular-nums mt-0.5">
+                    <div className="text-[9px] uppercase tracking-wider text-[var(--text-secondary)] font-semibold">Wind</div>
+                    <div className="text-[12px] font-bold text-[var(--text-primary)] tabular-nums mt-0.5">
                       {zone.windSpeed ? `${zone.windSpeed.toFixed(0)}k` : '—'}
                     </div>
                   </div>

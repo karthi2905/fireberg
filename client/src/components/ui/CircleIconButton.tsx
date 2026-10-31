@@ -30,10 +30,10 @@ export function CircleIconButton({
     <button
       className={cn(
         'relative inline-flex items-center justify-center rounded-full transition-all duration-150',
-        'bg-[rgba(30,24,20,0.85)] hover:bg-[rgba(45,36,30,0.95)] active:scale-95',
-        'border border-[rgba(255,255,255,0.08)] hover:border-[rgba(255,255,255,0.16)]',
-        'text-[#A8A199] hover:text-[#F7F5F2]',
-        active && 'bg-[#F5760A] text-white border-transparent hover:bg-[#E06800]',
+        'bg-[var(--bg-panel-raised)] hover:bg-[var(--bg-surface-hover)] active:scale-95',
+        'border border-[var(--border-hairline)] hover:border-[var(--border-strong)]',
+        'text-[var(--text-secondary)] hover:text-[var(--text-primary)] shadow-sm',
+        active && 'bg-[#F5760A] text-white border-transparent hover:bg-[#E06800] hover:text-white',
         sizeClasses,
         className
       )}
@@ -54,7 +54,7 @@ export function CircleIconButton({
       {/* Unread badge dot */}
       {badgeDot && !badgeCount && (
         <span
-          className="absolute top-1 right-1 w-2 h-2 rounded-full ring-2 ring-[#0C0A09]"
+          className="absolute top-1 right-1 w-2 h-2 rounded-full ring-2 ring-[var(--bg-canvas)]"
           style={{ backgroundColor: badgeColor }}
         />
       )}

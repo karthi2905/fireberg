@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import type React from 'react';
 import Topbar from './Topbar';
+import { useTheme } from '../context/ThemeContext';
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -7,25 +8,10 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, onLogout }: LayoutProps) {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0C0A09] text-[#F7F5F2] selection:bg-[#F5760A] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[var(--bg-canvas)] text-[var(--text-primary)] transition-colors duration-200 selection:bg-[#F5760A] selection:text-white">
       {/* Command Center Top Navigation */}
       <Topbar onLogout={onLogout} onThemeToggle={toggleTheme} theme={theme} />
 

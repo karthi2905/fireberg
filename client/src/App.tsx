@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import Login from './pages/Login';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
@@ -30,37 +31,39 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? <Navigate to="/" /> : <Login onLogin={() => setIsAuthenticated(true)} />
-          }
-        />
-        <Route
-          path="/*"
-          element={
-            isAuthenticated ? (
-              <Layout onLogout={() => setIsAuthenticated(false)}>
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/map" element={<MapPage />} />
-                  <Route path="/alerts" element={<Alerts />} />
-                  <Route path="/reports" element={<Reports />} />
-                  <Route path="/zones" element={<Zones />} />
-                  <Route path="/analytics" element={<Analytics />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-              </Layout>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              isAuthenticated ? <Navigate to="/" /> : <Login onLogin={() => setIsAuthenticated(true)} />
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              isAuthenticated ? (
+                <Layout onLogout={() => setIsAuthenticated(false)}>
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/map" element={<MapPage />} />
+                    <Route path="/alerts" element={<Alerts />} />
+                    <Route path="/reports" element={<Reports />} />
+                    <Route path="/zones" element={<Zones />} />
+                    <Route path="/analytics" element={<Analytics />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                  </Routes>
+                </Layout>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

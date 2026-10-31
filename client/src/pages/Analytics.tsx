@@ -114,20 +114,20 @@ export default function Analytics() {
         {/* Incident Progression Timeline */}
         <GlassCard className="p-5 flex flex-col justify-between" elevated>
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-hairline)]">
               <div className="flex items-center gap-2">
                 <BarChart3 size={16} className="text-[#F5760A]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
                   Incident Frequency & Progression Timeline
                 </h3>
               </div>
-              <span className="text-[10px] font-bold text-[#A8A199] bg-[rgba(255,255,255,0.06)] px-2 py-0.5 rounded">
+              <span className="text-[10px] font-bold text-[var(--text-secondary)] bg-[var(--bg-surface)] px-2 py-0.5 rounded border border-[var(--border-hairline)]">
                 14-DAY CADENCE
               </span>
             </div>
 
             {isLoading ? (
-              <Skeleton className="h-[280px] rounded-xl bg-[rgba(255,255,255,0.03)]" />
+              <Skeleton className="h-[280px] rounded-xl bg-[var(--bg-surface)]" />
             ) : analytics && analytics.incidentsOverTime.length > 0 ? (
               <div className="h-[280px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -138,24 +138,24 @@ export default function Analytics() {
                         <stop offset="95%" stopColor="#F5760A" stopOpacity={0.0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(128,128,128,0.15)" />
                     <XAxis
                       dataKey="date"
-                      tick={{ fill: '#A8A199', fontSize: 10 }}
-                      axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
+                      tick={{ fill: '#8C857E', fontSize: 10 }}
+                      axisLine={{ stroke: 'rgba(128,128,128,0.2)' }}
                     />
                     <YAxis
-                      tick={{ fill: '#A8A199', fontSize: 10 }}
-                      axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
+                      tick={{ fill: '#8C857E', fontSize: 10 }}
+                      axisLine={{ stroke: 'rgba(128,128,128,0.2)' }}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: 'rgba(24,19,16,0.95)',
-                        border: '1px solid rgba(255,255,255,0.12)',
+                        backgroundColor: 'var(--bg-panel-raised)',
+                        border: '1px solid var(--border-strong)',
                         borderRadius: '12px',
-                        color: '#F7F5F2',
+                        color: 'var(--text-primary)',
                         fontSize: '12px',
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+                        boxShadow: 'var(--shadow-glass)',
                       }}
                     />
                     <Area
@@ -170,35 +170,35 @@ export default function Analytics() {
                 </ResponsiveContainer>
               </div>
             ) : (
-              <div className="h-[280px] flex items-center justify-center text-xs text-[#A8A199]">
+              <div className="h-[280px] flex items-center justify-center text-xs text-[var(--text-secondary)]">
                 No historical timeline data recorded.
               </div>
             )}
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-between text-[11px] text-[#A8A199]">
+          <div className="mt-4 pt-3 border-t border-[var(--border-hairline)] flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
             <span>Peak Day: 6 detections</span>
-            <span className="text-[#22C55E]">Containment Velocity +14%</span>
+            <span className="text-[#22C55E] font-semibold">Containment Velocity +14%</span>
           </div>
         </GlassCard>
 
         {/* Severity Breakdown Donut */}
         <GlassCard className="p-5 flex flex-col justify-between" elevated>
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-hairline)]">
               <div className="flex items-center gap-2">
                 <PieChartIcon size={16} className="text-[#F5760A]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
                   Severity Distribution
                 </h3>
               </div>
-              <span className="text-[10px] font-bold text-[#A8A199] bg-[rgba(255,255,255,0.06)] px-2 py-0.5 rounded">
+              <span className="text-[10px] font-bold text-[var(--text-secondary)] bg-[var(--bg-surface)] px-2 py-0.5 rounded border border-[var(--border-hairline)]">
                 CLASSIFICATION
               </span>
             </div>
 
             {isLoading ? (
-              <Skeleton className="h-[240px] rounded-xl bg-[rgba(255,255,255,0.03)]" />
+              <Skeleton className="h-[240px] rounded-xl bg-[var(--bg-surface)]" />
             ) : hasSeverityData ? (
               <div>
                 <div className="h-[210px] w-full">
@@ -219,26 +219,27 @@ export default function Analytics() {
                       </Pie>
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: 'rgba(24,19,16,0.95)',
-                          border: '1px solid rgba(255,255,255,0.12)',
+                          backgroundColor: 'var(--bg-panel-raised)',
+                          border: '1px solid var(--border-strong)',
                           borderRadius: '12px',
-                          color: '#F7F5F2',
+                          color: 'var(--text-primary)',
                           fontSize: '12px',
+                          boxShadow: 'var(--shadow-glass)',
                         }}
                       />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-[rgba(255,255,255,0.06)]">
+                <div className="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-[var(--border-hairline)]">
                   {severityData.map((item) => (
-                    <div key={item.name} className="flex items-center gap-2 p-1.5 rounded-lg bg-[rgba(255,255,255,0.03)]">
+                    <div key={item.name} className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
                       <div
                         className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="text-xs font-semibold text-[#F7F5F2]">{item.name}</span>
-                      <span className="text-xs text-[#A8A199] ml-auto tabular-nums font-bold">
+                      <span className="text-xs font-semibold text-[var(--text-primary)]">{item.name}</span>
+                      <span className="text-xs text-[var(--text-secondary)] ml-auto tabular-nums font-bold">
                         {item.value}
                       </span>
                     </div>
@@ -246,13 +247,13 @@ export default function Analytics() {
                 </div>
               </div>
             ) : (
-              <div className="h-[240px] flex items-center justify-center text-xs text-[#A8A199]">
+              <div className="h-[240px] flex items-center justify-center text-xs text-[var(--text-secondary)]">
                 No severity records.
               </div>
             )}
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[rgba(255,255,255,0.08)] text-[11px] text-[#A8A199] flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-[var(--border-hairline)] text-[11px] text-[var(--text-secondary)] flex items-center justify-between">
             <span>Critical Weight: 24%</span>
             <span className="text-[#EF4444] font-semibold">Priority 1 Focus</span>
           </div>
@@ -261,10 +262,10 @@ export default function Analytics() {
 
       {/* Bottom Row: Containment & Operational Efficiency Benchmarks */}
       <GlassCard className="p-5" elevated>
-        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[rgba(255,255,255,0.08)]">
+        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-hairline)]">
           <div className="flex items-center gap-2">
             <ShieldCheck size={16} className="text-[#22C55E]" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
               Operational Response & Containment Benchmarks
             </h3>
           </div>

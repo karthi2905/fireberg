@@ -114,7 +114,7 @@ export default function MapPage() {
   if (isLoading) {
     return (
       <div className="w-full h-[calc(100vh-120px)] rounded-2xl glass-panel relative overflow-hidden">
-        <Skeleton className="absolute inset-0 bg-[rgba(255,255,255,0.03)]" />
+        <Skeleton className="absolute inset-0 bg-[var(--bg-surface)]" />
       </div>
     );
   }
@@ -124,18 +124,18 @@ export default function MapPage() {
       {/* Floating Header Controls */}
       <div className="absolute top-4 left-4 z-[1000] flex flex-wrap items-center gap-2 max-w-[calc(100%-32px)]">
         {/* Title pill */}
-        <div className="px-3.5 py-2 rounded-xl bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] shadow-glass-sm flex items-center gap-2">
+        <div className="px-3.5 py-2 rounded-xl bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] shadow-glass-sm flex items-center gap-2">
           <Layers size={16} className="text-[#F5760A]" />
-          <span className="text-xs font-bold uppercase tracking-wider text-[#F7F5F2]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
             Tactical Map Grid
           </span>
-          <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-[rgba(255,255,255,0.08)] text-[#A8A199] tabular-nums">
+          <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-[var(--bg-surface)] text-[var(--text-secondary)] tabular-nums border border-[var(--border-hairline)]">
             {filteredZones.length}/{zones.length}
           </span>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1 p-1 rounded-full bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] shadow-glass-sm">
+        <div className="flex items-center gap-1 p-1 rounded-full bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] shadow-glass-sm">
           {(['all', 'critical', 'high', 'medium', 'low'] as const).map((filter) => {
             const count = filter === 'all' ? zones.length : zones.filter((z) => z.riskLevel === filter).length;
             const isActive = selectedFilter === filter;
@@ -143,16 +143,16 @@ export default function MapPage() {
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase transition-all flex items-center gap-1.5 whitespace-nowrap ${
                   isActive
                     ? 'bg-[#F5760A] text-white shadow-sm'
-                    : 'text-[#A8A199] hover:text-[#F7F5F2]'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 <span>{filter}</span>
                 <span
                   className={`text-[9px] px-1 rounded-full tabular-nums ${
-                    isActive ? 'bg-black/30 text-white' : 'bg-[rgba(255,255,255,0.08)] text-[#A8A199]'
+                    isActive ? 'bg-black/30 text-white' : 'bg-[var(--bg-surface-hover)] text-[var(--text-secondary)]'
                   }`}
                 >
                   {count}
@@ -164,7 +164,7 @@ export default function MapPage() {
       </div>
 
       {/* Floating Bottom Left Telemetry */}
-      <div className="absolute bottom-4 left-4 z-[1000] hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[rgba(16,13,11,0.85)] backdrop-blur-md border border-[rgba(255,255,255,0.1)] text-[#A8A199] text-xs">
+      <div className="absolute bottom-4 left-4 z-[1000] hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--bg-panel-raised)] backdrop-blur-md border border-[var(--border-hairline)] text-[var(--text-secondary)] text-xs shadow-glass-sm">
         <Radio size={14} className="text-[#F5760A] animate-pulse" />
         <span>Live Sensor Telemetry · Coordinates WGS84</span>
       </div>
@@ -172,42 +172,42 @@ export default function MapPage() {
       {/* Selected Zone Inspector Overlay (Top-Right) */}
       {activeZone && (
         <div className="absolute top-4 right-4 z-[1000] w-80 rounded-2xl glass-panel-elevated p-4 animate-in fade-in slide-in-from-right-4 duration-150">
-          <div className="flex items-start justify-between gap-2 pb-2 mb-3 border-b border-[rgba(255,255,255,0.08)]">
+          <div className="flex items-start justify-between gap-2 pb-2 mb-3 border-b border-[var(--border-hairline)]">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <StatusPill status={activeZone.riskLevel} />
-                <span className="text-[10px] text-[#A8A199]">Telemetry Online</span>
+                <span className="text-[10px] text-[var(--text-secondary)]">Telemetry Online</span>
               </div>
-              <h3 className="text-sm font-bold text-[#F7F5F2]">{activeZone.name}</h3>
+              <h3 className="text-sm font-bold text-[var(--text-primary)]">{activeZone.name}</h3>
             </div>
             <button
               onClick={() => setActiveZone(null)}
-              className="p-1 rounded-lg text-[#A8A199] hover:text-[#F7F5F2] hover:bg-[rgba(255,255,255,0.08)]"
+              className="p-1 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]"
             >
               <X size={16} />
             </button>
           </div>
 
-          <div className="text-[11px] text-[#A8A199] mb-3 tabular-nums font-mono">
+          <div className="text-[11px] text-[var(--text-secondary)] mb-3 tabular-nums font-mono">
             {activeZone.latitude.toFixed(4)}°N, {Math.abs(activeZone.longitude).toFixed(4)}°W
           </div>
 
-          <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] text-center mb-3">
+          <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-center mb-3">
             <div>
-              <div className="text-[10px] uppercase text-[#A8A199]">Ambient</div>
-              <div className="text-sm font-bold text-[#F7F5F2] tabular-nums mt-0.5">
+              <div className="text-[10px] uppercase text-[var(--text-secondary)] font-semibold">Ambient</div>
+              <div className="text-sm font-bold text-[var(--text-primary)] tabular-nums mt-0.5">
                 {activeZone.temperature ? `${activeZone.temperature.toFixed(0)}°C` : '—'}
               </div>
             </div>
             <div>
-              <div className="text-[10px] uppercase text-[#A8A199]">Humidity</div>
-              <div className="text-sm font-bold text-[#F7F5F2] tabular-nums mt-0.5">
+              <div className="text-[10px] uppercase text-[var(--text-secondary)] font-semibold">Humidity</div>
+              <div className="text-sm font-bold text-[var(--text-primary)] tabular-nums mt-0.5">
                 {activeZone.humidity ? `${activeZone.humidity.toFixed(0)}%` : '—'}
               </div>
             </div>
             <div>
-              <div className="text-[10px] uppercase text-[#A8A199]">Velocity</div>
-              <div className="text-sm font-bold text-[#F7F5F2] tabular-nums mt-0.5">
+              <div className="text-[10px] uppercase text-[var(--text-secondary)] font-semibold">Velocity</div>
+              <div className="text-sm font-bold text-[var(--text-primary)] tabular-nums mt-0.5">
                 {activeZone.windSpeed ? `${activeZone.windSpeed.toFixed(0)}k` : '—'}
               </div>
             </div>
@@ -223,11 +223,11 @@ export default function MapPage() {
         </div>
       )}
 
-      {/* Leaflet Map with CartoDB Dark Matter */}
+      {/* Leaflet Map */}
       <MapContainer
         center={[37.5, -119.5]}
         zoom={6}
-        style={{ height: '100%', width: '100%', background: '#0C0A09' }}
+        style={{ height: '100%', width: '100%', background: 'var(--bg-canvas)' }}
         className="z-0"
       >
         <TileLayer
@@ -248,17 +248,17 @@ export default function MapPage() {
               }}
             >
               <Popup className="custom-popup">
-                <div className="p-3 min-w-[200px] bg-[#140F0C] rounded-xl text-[#F7F5F2]">
+                <div className="p-3 min-w-[200px] bg-[var(--bg-panel-raised)] rounded-xl text-[var(--text-primary)]">
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <h4 className="text-xs font-bold text-[#F7F5F2] truncate">{zone.name}</h4>
+                    <h4 className="text-xs font-bold text-[var(--text-primary)] truncate">{zone.name}</h4>
                     <StatusPill status={zone.riskLevel} />
                   </div>
-                  <div className="text-[10px] text-[#A8A199] mb-2 font-mono">
+                  <div className="text-[10px] text-[var(--text-secondary)] mb-2 font-mono">
                     {zone.latitude.toFixed(4)}°N, {Math.abs(zone.longitude).toFixed(4)}°W
                   </div>
-                  <div className="flex items-center justify-between text-xs text-[#A8A199] pt-2 border-t border-[rgba(255,255,255,0.06)]">
-                    <span>Temp: {zone.temperature?.toFixed(0)}°C</span>
-                    <span>Wind: {zone.windSpeed?.toFixed(0)} km/h</span>
+                  <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] pt-2 border-t border-[var(--border-hairline)]">
+                    <span>Temp: <strong className="text-[var(--text-primary)]">{zone.temperature?.toFixed(0)}°C</strong></span>
+                    <span>Wind: <strong className="text-[var(--text-primary)]">{zone.windSpeed?.toFixed(0)} km/h</strong></span>
                   </div>
                 </div>
               </Popup>
